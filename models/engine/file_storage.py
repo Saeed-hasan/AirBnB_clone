@@ -8,9 +8,8 @@ from models.amenity import Amenity
 from models.city import City
 from models.place import Place
 
-"""
-model to covert dict to a json and store in file
-"""
+name_class = ["BaseModel", "City", "State",
+              "Place", "Amenity", "Review", "User"]
 
 
 class FileStorage:
@@ -35,6 +34,27 @@ class FileStorage:
         __objects dictionary. The object is stored
         with a key in the format "<class_name>.<object_id>"
         """
-    class_name = obj.__class__.__name__
-    key = "{}.{}".format(class_name, str(obj.id))
-    self.__objects[key] = obj
+        class_name = obj.__class__.__name__
+        key = "{}.{}".format(class_name, str(obj.id))
+        value_dict = obj
+        self.__objects[key] = value_dict
+
+    def save(self):
+        """ serializes __objects to the JSON file """
+        new_dict = {}
+        for key, value in FileStorage.__objects.items():
+            new_dict[key] = value.to_dict()
+        with open(FileStorage.__file_path, "w") as f:
+            json.dump(new_dict, f)
+
+    def reload(self):
+        """ deserializes the JSON file to __objects """
+        try:
+            with open(FileStorage.__file_path, "r") as f:
+                python_dic = json.load(f)
+            for key, value in python_dic.items():
+                class_name = key.split(".")[0]
+                if class_name in name_class:
+                    FileStorage.__objects[key] = eval(class_name)(**value)
+        except FileNotFoundError:
+            pass
