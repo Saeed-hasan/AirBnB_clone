@@ -65,3 +65,27 @@ class HBNBCommand(cmd.Cmd):
                 obj = Review()
             obj.save()
             print(obj.id)
+
+    def do_show(self, line):
+        """
+        Usage: show <class name> <id>
+
+        Prints the string rep. of an instance based on the class name & id.
+
+        Ex: $ show BaseModel 1234-1234-1234.
+        """
+        args = line.split()
+        if len(args) == 0:
+            print("** class name missing **")
+        elif args[0] not in HBNBCommand.classes:
+            print("** class doesn't exist **")
+        elif len(args) == 1:
+            print("** instance id missing **")
+        else:
+            objects = models.storage.all()
+            key = "{}.{}".format(args[0], args[1])
+            obj = objects.get(key, None)
+            if obj is None:
+                print("** no instance found **")
+            else:
+                print(obj)
