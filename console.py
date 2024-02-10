@@ -84,8 +84,92 @@ class HBNBCommand(cmd.Cmd):
         else:
             objects = models.storage.all()
             key = "{}.{}".format(args[0], args[1])
-            obj = objects.get(key, None)
             if key not in objects.keys():
                 print("** no instance found **")
             else:
                 print(objects[key])
+
+    def do_destroy(self, line):
+        """
+        Usage: destroy <class name> <id>
+
+        Deletes an instance based on the class name and id
+        (save the change into the JSON file).
+
+        Ex: $ destroy BaseModel 1234-1234-1234.
+        """
+        args = line.split()
+        if len(args) == 0:
+            print("** class name missing **")
+        elif args[0] not in HBNBCommand.classes:
+            print("** class doesn't exist **")
+        elif len(args) == 1:
+            print("** instance id missing **")
+        else:
+            objects = models.storage.all()
+            key = "{}.{}".format(args[0], args[1])
+            if key not in objects.keys():
+                print("** no instance found **")
+            else:
+                del objects[key]
+                models.storage.save()
+
+    def do_all(self, line):
+        """
+        Usage: all <class name>
+
+        Prints all string rep. of all instances based or not on the class name
+
+        Ex: $ all BaseModel or $ all.
+        """
+        args = line.split()
+        objects = models.storage.all()
+        obj_list = []
+        if len(args) == 0:
+            for value in objects.values():
+                obj_list.append(str(value))
+        elif args[0] in HBNBCommand.classes:
+            for key, value in objects.items():
+                if args[0] in key:
+                    obj_list.append(str(value))
+        else:
+            print("** class doesn't exist **")
+
+    def do_update(self, line):
+        """
+        Usage: update <class name> <id> <attribute name> "<attribute value>"
+
+        Updates an instance based on the class name and id by adding or
+        updating attribute(name & value) or using a dictionary representation
+        save the change into the JSON file)
+
+        Example:
+        $ update BaseModel 1234-1234-1234 email "aibnb@mail.com"
+        $ update User 1234-1234-1234-1234 {'first_name': 'John', 'age': 89}
+        """
+        args = line.split()
+        objects = models.storage.all()
+        if len(args) == 0:
+            print("** class name missing **")
+        if args[0] in HBNBCommand.classes:
+            if len(args) > 1:
+                key = "{}.{}".format(args[0], args[1])
+                if key in objects.keys():
+                    if len(args) > 2:
+                        if len(args) > 3:
+                            setattr(objects[key], args[3], args[4])
+                            models.storage.save()
+                        else:
+                            print("** value missing **")
+                    else:
+                        print("** attribute name missing **")
+                else:
+                    print("** no instance found **")
+            else:
+                print("** instance id missing **")
+        else:
+            print("** class doesn't exist **")
+
+
+if __name__ == '__main__':
+    HBNBCommand().cmdloop()
