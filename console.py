@@ -85,7 +85,7 @@ class HBNBCommand(cmd.Cmd):
             objects = models.storage.all()
             key = "{}.{}".format(args[0], args[1])
             obj = objects.get(key, None)
-            if obj is None:
+            if key not in objects.keys():
                 print("** no instance found **")
             else:
-                print(obj)
+                print(objects[key])
