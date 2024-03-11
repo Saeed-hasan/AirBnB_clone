@@ -123,8 +123,7 @@ class TestPlace_instantiation(unittest.TestCase):
     def test_Place_dict(self):
         """ Place_dict """
         my_object = Place()
-        my_object1 = BaseModel()
-        self.assertTrue('id' in my_object1.to_dict())
+        self.assertTrue('id' in my_object.__dict__)
         self.assertTrue('created_at' in my_object.__dict__)
         self.assertTrue('updated_at' in my_object.__dict__)
         self.assertTrue('city_id' in my_object.__dict__)
