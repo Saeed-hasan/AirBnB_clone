@@ -38,7 +38,7 @@ class TestCity_instantiation(unittest.TestCase):
         self.assertNotIn("state_id", my_model.__dict__)
 
     def test_name_is_public_class_attribute(self):
-        my-model = City()
+        my_model = City()
         self.assertEqual(str, type(City.name))
         self.assertIn("name", dir(my_model))
         self.assertNotIn("name", my_model.__dict__)
@@ -54,7 +54,7 @@ class TestCity_instantiation(unittest.TestCase):
         my_strobject = City()
         _dict = my_strobject.__dict__
         string1 = "[City] ({}) {}".format(my_strobject.id, _dict)
-        string2 = str(my_object)
+        string2 = str(my_strobject)
         self.assertEqual(string1, string2)
 
     def test_save(self):
@@ -67,12 +67,13 @@ class TestCity_instantiation(unittest.TestCase):
 
     def test_City_dict(self):
         """ City_dict """
-        self.assertTrue('id' in self.city.__dict__)
-        self.assertTrue('created_at' in self.city.__dict__)
-        self.assertTrue('updated_at' in self.city.__dict__)
-        self.assertTrue('state_id' in self.city.__dict__)
-        self.assertTrue('name' in self.city.__dict__)
-        self.assertTrue('__class__' in self.city.__dict__)
+        my_object = City()
+        self.assertTrue('id' in my_object.__dict__)
+        self.assertTrue('created_at' in my_object.__dict__)
+        self.assertTrue('updated_at' in my_object.__dict__)
+        self.assertTrue('state_id' in my_object.__dict__)
+        self.assertTrue('name' in my_object.__dict__)
+        self.assertTrue('__class__' in my_object.__dict__)
 
 
 if __name__ == "__main__":

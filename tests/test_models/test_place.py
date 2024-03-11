@@ -11,6 +11,7 @@ import models
 import unittest
 from datetime import datetime
 from models.place import Place
+from models.base_model import BaseModel
 
 
 class TestPlace_instantiation(unittest.TestCase):
@@ -121,13 +122,15 @@ class TestPlace_instantiation(unittest.TestCase):
 
     def test_Place_dict(self):
         """ Place_dict """
-        self.assertTrue('id' in self.place.__dict__)
-        self.assertTrue('created_at' in self.place.__dict__)
-        self.assertTrue('updated_at' in self.place.__dict__)
-        self.assertTrue('city_id' in self.place.__dict__)
-        self.assertTrue('user_id' in self.place.__dict__)
-        self.assertTrue('name' in self.place.__dict__)
-        self.assertTrue('__class__' in self.place.__dict__)
+        my_object = Place()
+        my_object1 = BaseModel()
+        self.assertTrue('id' in my_object1.to_dict())
+        self.assertTrue('created_at' in my_object.__dict__)
+        self.assertTrue('updated_at' in my_object.__dict__)
+        self.assertTrue('city_id' in my_object.__dict__)
+        self.assertTrue('user_id' in my_object.__dict__)
+        self.assertTrue('name' in my_object.__dict__)
+        self.assertTrue('__class__' in my_object.__dict__)
 
 
 if __name__ == "__main__":

@@ -15,9 +15,9 @@ class BaseModel:
         if kwargs is not None and kwargs != {}:
             for key, value in kwargs.items():
                 if key == "created_at":
-                    value = datetime.striptime(value, '%Y-%m-%dT%H:%M:%S.%f')
+                    value = datetime.strptime(value, '%Y-%m-%dT%H:%M:%S.%f')
                 if key == "updated_at":
-                    value = datetime.striptime(value, '%Y-%m-%dT%H:%M:%S.%f')
+                    value = datetime.strptime(value, '%Y-%m-%dT%H:%M:%S.%f')
                 if key == "__class__":
                     pass
                 else:

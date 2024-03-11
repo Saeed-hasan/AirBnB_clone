@@ -4,7 +4,7 @@ Test for storage
 """
 import json
 import os
-import models
+from models import storage
 import unittest
 from datetime import datetime
 from models.base_model import BaseModel

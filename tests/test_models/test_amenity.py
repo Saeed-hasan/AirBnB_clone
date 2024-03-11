@@ -61,10 +61,11 @@ class TestAmenity_instantiation(unittest.TestCase):
 
     def test_Amenity_dict(self):
         """Amenity_dict"""
-        self.assertTrue('id' in self.amenity.__dict__)
-        self.assertTrue('created_at' in self.amenity.__dict__)
-        self.assertTrue('updated_at' in self.amenity.__dict__)
-        self.assertTrue('name' in self.amenity.__dict__)
+        my_object = Amenity()
+        self.assertTrue('id' in my_object.__dict__)
+        self.assertTrue('created_at' in my_object.__dict__)
+        self.assertTrue('updated_at' in my_object.__dict__)
+        self.assertTrue('name' in my_object.__dict__)
 
 
 if __name__ == "__main__":
