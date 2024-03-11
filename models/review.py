@@ -4,7 +4,7 @@
 
 import uuid
 from datetime import datetime
-from models import storage
+import models
 from models.base_model import BaseModel
 
 
